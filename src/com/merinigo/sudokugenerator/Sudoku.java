@@ -1,7 +1,7 @@
 package com.merinigo.sudokugenerator;
 
 public class Sudoku {
-
+	
 	private int[][] sudokuArray;
 
 	public Sudoku() {

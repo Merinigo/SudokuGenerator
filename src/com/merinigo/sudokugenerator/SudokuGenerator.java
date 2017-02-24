@@ -8,36 +8,31 @@ public class SudokuGenerator {
 	
 	public static Sudoku generateSudoku(){
 		Sudoku generatedSudoku = new Sudoku();
-		boolean isGenerated = false;
+		boolean isValidSudoku = false;
 		
-		while(!isGenerated){
+		//Llena el sudo hasta encontrar uno valido
+		while(!isValidSudoku){
 			try{				
 				populateSudoku(generatedSudoku);
-				isGenerated = true;
+				isValidSudoku = true;
 			}catch (IllegalArgumentException e) {						
 				generatedSudoku.resetSudoku();			
 			}
 		}
-		
-		
-		
+						
 		return generatedSudoku;
 	}
 	
+	//Llena el sudoku cuadrante por cuadrante
 	private static void populateSudoku(Sudoku sudoku) throws IllegalArgumentException{		
-		fillCuadrant(0, 3, 0, 3, sudoku);
-		fillCuadrant(0, 3, 3, 6, sudoku);
-		fillCuadrant(0, 3, 6, 9, sudoku);	
-		
-		fillCuadrant(3, 6, 0, 3, sudoku);
-		fillCuadrant(3, 6, 3, 6, sudoku);
-		fillCuadrant(3, 6, 6, 9, sudoku);				
-		
-		fillCuadrant(6, 9, 0, 3, sudoku);
-		fillCuadrant(6, 9, 3, 6, sudoku);
-		fillCuadrant(6, 9, 6, 9, sudoku);								
+		for(int i=0; i <= 6; i = i + 3){
+			for(int j=0; j <= 6; j = j + 3){
+				fillCuadrant(i, i+3, j, j+3, sudoku);				
+			}
+		}							
 	}
 	
+	//Lena el cuadrante indicado por parametros
 	private static void fillCuadrant(int initialRow, int finalRow, int initialCol, int finalCol, Sudoku sudoku) throws IllegalArgumentException{
 		int[][] sudokuArray = sudoku.getSudokuArray();
 		ArrayList<Integer> posibles;
@@ -81,15 +76,13 @@ public class SudokuGenerator {
 	}
 	
 	private static boolean isOnSquare(int number, int row, int column, Sudoku sudoku){		
-		int[][] sudokuArray = sudoku.getSudokuArray();
+		int[][] sudokuArray = sudoku.getSudokuArray();						
 		
 		//Cuadrante 1
 		if(row < 3 && column < 3){			
 			for(int i=0; i < 3; i++){
 				for(int j=0; j < 3; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;					
 				}
 			}
 		}
@@ -98,9 +91,7 @@ public class SudokuGenerator {
 		if(row < 3 && column < 6){			
 			for(int i=0; i < 3; i++){
 				for(int j=3; j < 6; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;					
 				}
 			}
 		}
@@ -109,9 +100,7 @@ public class SudokuGenerator {
 		if(row < 3 && column < 9){			
 			for(int i=0; i < 3; i++){
 				for(int j=6; j < 9; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -120,9 +109,7 @@ public class SudokuGenerator {
 		if(row < 6 && column < 3){			
 			for(int i=3; i < 6; i++){
 				for(int j=0; j < 3; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -131,9 +118,7 @@ public class SudokuGenerator {
 		if(row < 6 && column < 6){			
 			for(int i=3; i < 6; i++){
 				for(int j=3; j < 6; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -142,9 +127,7 @@ public class SudokuGenerator {
 		if(row < 6 && column < 9){			
 			for(int i=3; i < 6; i++){
 				for(int j=6; j < 9; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -153,9 +136,7 @@ public class SudokuGenerator {
 		if(row < 9 && column < 3){			
 			for(int i=6; i < 9; i++){
 				for(int j=0; j < 3; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -164,9 +145,7 @@ public class SudokuGenerator {
 		if(row < 9 && column < 6){			
 			for(int i=6; i < 9; i++){
 				for(int j=3; j < 6; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -175,9 +154,7 @@ public class SudokuGenerator {
 		if(row < 9 && column < 9){			
 			for(int i=6; i < 9; i++){
 				for(int j=6; j < 9; j++){
-					if(sudokuArray[i][j] == number){
-						return true;
-					}
+					if(sudokuArray[i][j] == number) return true;
 				}
 			}
 		}
@@ -185,15 +162,14 @@ public class SudokuGenerator {
 		return false;
 	}
 		
-	public static void showSudoku(Sudoku sudoku){
+	public static void showSudokuInConsole(Sudoku sudoku){
 		int[][] sudokuArray = sudoku.getSudokuArray();
 		for(int i=0; i < sudokuArray.length; i++){
 			for(int j=0; j < sudokuArray[i].length; j++){
 				System.out.print(sudokuArray[i][j] + " ");
 			}
 			System.out.println();
-		}		
-		System.out.println("---------------");
+		}				
 	}
 	
 }
