@@ -1,4 +1,4 @@
-package main;
+package com.merinigo.sudokugenerator;
 
 import java.util.ArrayList;
 import java.util.Arrays;

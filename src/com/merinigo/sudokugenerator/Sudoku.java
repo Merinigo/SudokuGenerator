@@ -1,4 +1,4 @@
-package main;
+package com.merinigo.sudokugenerator;
 
 public class Sudoku {
 
